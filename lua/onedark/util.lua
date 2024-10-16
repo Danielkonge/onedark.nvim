@@ -3,6 +3,8 @@ local util = {}
 util.bg = "#000000"
 util.fg = "#ffffff"
 
+---@param hex_str string: hex string
+---@return integer[]
 local function hexToRgb(hex_str)
   local hex = "[abcdef0-9][abcdef0-9]"
   local pat = "^#(" .. hex .. ")(" .. hex .. ")(" .. hex .. ")$"
@@ -18,11 +20,11 @@ end
 ---@param bg string background color
 ---@param alpha number number between 0 and 1. 0 results in bg, 1 results in fg
 function util.blend(fg, bg, alpha)
-  bg = hexToRgb(bg)
-  fg = hexToRgb(fg)
+  local bg_values = hexToRgb(bg)
+  local fg_values = hexToRgb(fg)
 
   local blendChannel = function(i)
-    local ret = (alpha * fg[i] + ((1 - alpha) * bg[i]))
+    local ret = (alpha * fg_values[i] + ((1 - alpha) * bg_values[i]))
     return math.floor(math.min(math.max(0, ret), 255) + 0.5)
   end
 
