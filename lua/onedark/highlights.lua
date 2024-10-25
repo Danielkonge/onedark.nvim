@@ -67,7 +67,7 @@ hl.common = {
     IncSearch = { fg = c.bg0, bg = c.orange },
     Search = { fg = c.bg0, bg = c.bg_yellow },
     Substitute = { fg = c.bg0, bg = c.green },
-    MatchParen = { fg = c.none, bg = c.grey },
+    MatchParen = { fg = c.none, bg = c.light_grey },
     NonText = { fg = c.grey },
     Whitespace = { fg = c.grey },
     SpecialKey = { fg = c.grey },
@@ -81,10 +81,10 @@ hl.common = {
     SpellCap = { fg = c.none, fmt = "undercurl", sp = c.yellow },
     SpellLocal = { fg = c.none, fmt = "undercurl", sp = c.blue },
     SpellRare = { fg = c.none, fmt = "undercurl", sp = c.purple },
-    StatusLine = { fg = c.fg, bg = c.bg2 },
-    StatusLineTerm = { fg = c.fg, bg = c.bg2 },
-    StatusLineNC = { fg = c.grey, bg = c.bg1 },
-    StatusLineTermNC = { fg = c.grey, bg = c.bg1 },
+    StatusLine = { fg = c.fg, bg = cfg.transparent and c.none or c.bg2 },
+    StatusLineTerm = { fg = c.fg, bg = cfg.transparent and c.none or c.bg2 },
+    StatusLineNC = { fg = c.grey, bg = cfg.transparent and c.none or c.bg1 },
+    StatusLineTermNC = { fg = c.grey, bg = cfg.transparent and c.none or c.bg1 },
     TabLine = { fg = c.fg, bg = c.bg1 },
     TabLineFill = { fg = c.grey, bg = c.bg1 },
     TabLineSel = { fg = c.bg0, bg = c.fg },
@@ -98,6 +98,8 @@ hl.common = {
     ToolbarButton = { fg = c.bg0, bg = c.bg_blue },
     FloatBorder = { fg = c.grey, bg = c.bg1 },
     NormalFloat = { fg = c.fg, bg = c.bg1 },
+
+    ModeMsg = colors.Cyan,
 }
 
 hl.syntax = {
@@ -168,44 +170,44 @@ hl.treesitter = {
 
     ["@type"] = colors.Yellow,
     ["@type.builtin"] = colors.Orange,
-    ["@type.definition"] = { fg = c.dark_yellow },
+    ["@type.definition"] = colors.Yellow,
 
     ["@attribute"] = colors.Cyan,
-    ["@attribute.builtin"] = colors.Blue,
+    ["@attribute.builtin"] = colors.Cyan,
     ["@property"] = colors.Cyan,
 
     ["@function"] = { fg = c.blue, fmt = cfg.code_style.functions },
     ["@function.builtin"] = { fg = c.cyan, fmt = cfg.code_style.functions },
-    ["@function.call"] = { fg = c.dark_purple, fmt = cfg.code_style.functions },
+    ["@function.call"] = { fg = c.blue, fmt = cfg.code_style.functions },
     ["@function.macro"] = { fg = c.cyan, fmt = cfg.code_style.functions },
 
     ["@function.method"] = { fg = c.blue, fmt = cfg.code_style.functions },
-    ["@function.method.call"] = { fg = c.dark_purple, fmt = cfg.code_style.functions },
+    ["@function.method.call"] = { fg = c.blue, fmt = cfg.code_style.functions },
 
     ["@constructor"] = { fg = c.yellow, fmt = "bold" },
     ["@operator"] = colors.Fg,
 
     ["@keyword"] = { fg = c.purple, fmt = cfg.code_style.keywords },
-    ["@keyword.corroutine"] = { fg = c.dark_purple, fmt = cfg.code_style.keywords },
+    ["@keyword.corroutine"] = { fg = c.orange, fmt = cfg.code_style.keywords },
     ["@keyword.function"] = { fg = c.purple, fmt = cfg.code_style.functions },
     ["@keyword.operator"] = { fg = c.purple, fmt = cfg.code_style.keywords },
     ["@keyword.import"] = colors.Purple,
-    ["@keyword.type"] = { fg = c.dark_purple },
-    ["@keyword.modifier"] = { fg = c.dark_purple },
+    ["@keyword.type"] = { fg = c.purple, fmt = cfg.code_style.keywords },
+    ["@keyword.modifier"] = { fg = c.purple, fmt = cfg.code_style.keywords },
     ["@keyword.repeat"] = { fg = c.purple, fmt = cfg.code_style.keywords },
     ["@keyword.return"] = { fg = c.purple, fmt = cfg.code_style.functions },
-    ["@keyword.debug"] = { fg = c.dark_purple, fmt = 'bold' },
-    ["@keyword.exception"] = { fg = c.dark_red },
+    ["@keyword.debug"] = { fg = c.yellow, fmt = 'bold' },
+    ["@keyword.exception"] = { fg = c.red, fmt = "bold" },
 
     ["@keyword.conditional"] = { fg = c.purple, fmt = cfg.code_style.keywords },
-    ["@keyword.conditional.ternary"] = { fg = c.dark_purple, fmt = cfg.code_style.keywords },
+    ["@keyword.conditional.ternary"] = { fg = c.orange, fmt = cfg.code_style.keywords },
 
     ["@keyword.directive"] = { fg = c.purple, fmt = cfg.code_style.keywords },
-    ["@keyword.directive.define"] = { fg = c.dark_purple, fmt = cfg.code_style.keywords },
+    ["@keyword.directive.define"] = { fg = c.orange, fmt = cfg.code_style.keywords },
 
     ["@punctuation.delimiter"] = colors.LightGrey,
     ["@punctuation.bracket"] = colors.Red,
-    ["@punctuation.special"] = colors.LightGrey,
+    ["@punctuation.special"] = colors.Red,
 
     ["@comment"] = { fg = c.grey, fmt = cfg.code_style.comments },
     ["@comment.documentation"] = { fg = c.dark_yellow, fmt = cfg.code_style.documentation },
@@ -740,7 +742,7 @@ function M.setup()
     -- define cmp and aerial kind highlights with lsp_kind_icons_color
     for kind, color in pairs(lsp_kind_icons_color) do
         hl.plugins.cmp["CmpItemKind" .. kind] = { fg = color, fmt = cfg.cmp_itemkind_reverse and "reverse" }
-        hl.plugins.outline["Aerial" .. kind] = { fg = color }
+        hl.plugins.aerial["Aerial" .. kind] = { fg = color }
     end
 
     vim_highlights(hl.common)

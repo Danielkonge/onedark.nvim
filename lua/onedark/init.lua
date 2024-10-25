@@ -31,10 +31,10 @@ local default_config = {
     code_style = {
         comments = 'italic',
         keywords = 'none',
-        functions = 'bold',
+        functions = 'none',
         strings = 'none',
         variables = 'none',
-        documentation = 'italic',
+        documentation = 'italic,bold',
     },
 
     -- Lualine options --
